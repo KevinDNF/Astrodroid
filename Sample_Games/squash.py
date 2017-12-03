@@ -62,9 +62,9 @@ def checkBallHitBat(ball, bat, speedX):
 def checkMoveBat(court, bat):
     key = court.checkKey()
     if key == "k":
-        bat.move(0, 0.01)
+        bat.move(0, 0.05)
     elif key == "m":
-        bat.move(0, -0.01)
+        bat.move(0, -0.05)
     
 def makeBat(court):
     bat = drawRectangle(court, Point(BAT_X, 0.5 - BAT_WIDTH / 2),
