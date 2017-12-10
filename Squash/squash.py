@@ -16,7 +16,7 @@ def init():
     Player1 = drawRectangle(Point(20,500),Point(40,520), "red", "white")
     Player2 = drawRectangle(Point(1000,500),Point(1020,520), "blue", "white")
     ball    = Circle(Point(500,500),BALL_RADIUS)
-    ball.draw()
+    ball.draw(win)
 
 def makeMap():
 
@@ -59,6 +59,15 @@ def keyBinds(userKey):
         Player2.move(-20,0)
     elif userKey == "space":
         Player2.move(0,-10)
+
+
+def jump(player):
+
+    ground = player.x
+    ground 
+    if jumping = True:
+        accel += 1
+        if accel  10
 
 
 def moveBall():
