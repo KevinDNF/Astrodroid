@@ -15,7 +15,7 @@ def drawRect(win,p1,p2,fill = None,outline= None):
    if outline != None: Rect.setOutline(outline)
    #Outline of shape will be black unless specified
    Rect.draw(win)
-
+   return Rect
 
 def drawTria(win,p1,p2,p3,fill = None,outline= None):
 
