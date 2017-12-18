@@ -12,4 +12,4 @@
 + "d" or "right-arrow" - Moves android right
 + "space" - Toogles the Jetpack on or off
 
-![screenshot](screenshots/screeenshot.png)
+![screenshot](screenshots/screenshot.png)
