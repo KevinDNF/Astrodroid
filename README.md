@@ -1,20 +1,29 @@
-# Game - Python Programming Competition
+# Apple Chaser
 
-This game was created for my university programming competition.
+This game was initially created for a programming competition in which I was not allowed to use classes or non-standard libraries. Maintaining the same rules I will improve it to a finished version.
 
-## 1 - Task
+The version submitted to the competition can be found here.
+https://www.github.com/KevinDNF/gameCompetition/tree/v1.0
 
-Improve and extend either the Squash or the Android-Apple game developed in the lectures on 14th and 21st November. 
+## Goal
 
-## 2 - Rules
++ Eat as many apples as you can before entering the gate (white rectangular block).
++ Avoid hitting the mines or the android will explode.
++ Complete 3 levels to win the game.
 
-Use only Python and the graphics module. Don't write (object-oriented) classes and do not use non-standard libraries such as PyGame - any modules you use apart from graphics.py must be part of the standard Python 3 distribution. However, if you want to add sound, I suggest using the winsound module (this only works on WIndows, but you can assume that we will use a Windows computer to run your program). Do not re-write the game completely - it should still involve bat(s)/ball or an android eating apples (but of course, it could do other things as well!). Keep to the spirit of the unit and the competition, and make sure that your game would not offend anyone.
+## Controls
 
-## 3 - Judging
++ "a" or "left-arrow" - Moves android left
++ "d" or "right-arrow" - Moves android right
++ "space" - Toggles the Jetpack on or off
 
-Your program will be judged on: 
+## To-Do
 
-+ (mainly) the scale, imagination, fun and playability of the game
-+ (but also) code readability (including improvements to the supplied code).
++ Clean current code
++ Add enemies
++ Add a GUI
++ Improve graphics 
++ Add cute hats and more character customization 
++ Create a level creator
 
-# Deadline: 18-December
+![screenshot](Screenshots/screenshot.png)

@@ -201,12 +201,12 @@ def nextLevel(currentLevel,win,color):
     currentLevel += 1
     
     if currentLevel == 2:
-        path = "level2.txt"
+        path = "Levels/level2.txt"
         win , player1, gameMap, apples = drawScene(color,path) 
         playGame(win, player1, gameMap,apples,currentLevel,color) 
 
     elif currentLevel == 3:
-        path = "level3.txt"
+        path = "Levels/level3.txt"
         win , player1, gameMap, apples = drawScene(color,path) 
         playGame(win, player1, gameMap,apples,currentLevel,color) 
 
@@ -251,7 +251,7 @@ def onMapCollide(android,side,speedX,speedY):
 def main():
     level = 1
     color = getIntputs()
-    win , player1, gameMap, apples = drawScene(color,"level1.txt") 
+    win , player1, gameMap, apples = drawScene(color,"Levels/level1.txt") 
     playGame(win, player1, gameMap,apples,level,color) 
     
 main() 
