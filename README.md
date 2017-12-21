@@ -1,4 +1,4 @@
-# Apple Chaser
+# Astrodroid
 
 This game was initially created for a programming competition in which I was not allowed to use classes or non-standard libraries. Maintaining the same rules I will improve it to a finished version.
 
