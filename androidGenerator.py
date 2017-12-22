@@ -6,6 +6,9 @@ from drawShapes import *
 
 # To-do
 # Change the way the jetpack is checked
+# Animate jetpack with walking animation
+# Animate fire
+
 def animateWalk(android,frame):
     if frame == 0:
        android[2].move(5,0)

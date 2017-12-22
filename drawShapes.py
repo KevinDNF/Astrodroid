@@ -4,11 +4,10 @@ from graphics import *
 
 #-------DrawShapes------------
 
-def drawLine(win,p1,p2,outline=None,size=None):
+def drawLine(win,p1,p2,fill=None,size=None):
     
     line = Line(p1,p2)
-
-    if outline != None: line.setFill(outline)
+    if fill != None: line.setFill(fill)
     if size != None: line.setWidth(int(size))
     line.draw(win)
     return line
@@ -64,6 +63,14 @@ def drawOval(win,p1,p2,fill=None,outline=None):
     return oval
 
 #-------MakeShapes------------
+
+def makeLine(win,p1,p2,fill=None,size=None):
+    
+    line = Line(p1,p2)
+    if fill != None: line.setFill(fill)
+    if size != None: line.setWidth(int(size))
+    return line
+
 
 def makeRect(win,p1,p2,fill = None,outline= None):
         

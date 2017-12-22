@@ -2,7 +2,6 @@
 #UP849868
 
 from graphics import *
-from random import random
 from drawShapes import *
 from androidGenerator import *
 from mapGenerator import *
@@ -10,9 +9,12 @@ from mapGenerator import *
 
 #------------------------------------
 
+#To-do
+# Get rid of CLI use GUI
+# Read number of files in Level folder for "infinite" levels
+
 def getIntputs():
 
-    #same code that i used in my coursework :)
     avalColor = ["red","green","blue","magenta"
               ,"cyan","orange","brown","pink"]
    
@@ -33,26 +35,16 @@ def getIntputs():
 def drawAndroid(win,color):
      
     player1 = createAndroid(win,200,300,color) #androidGenerator.py
- #   player2 = createAndroid(win,100,200,"blue")
     
     return player1
-    
-# def drawApples(win, numberOfApples): #Change to a random enemy generator
-# 
-#     apples = []
-#     for i in range(numberOfApples):
-#         x = random() * 1000
-#         y = random() * 1000
-#         apple = Circle(Point(x,y), 10)
-#         apple.setFill("red")
-#         apple.setOutline("red")
-#         apple.draw(win)
-#         apples.append(apple)
-#     return apples
 
-def drawScene(color,path):
-    
-    win = GraphWin("Apple Chaser" , 800, 600)
+def clearScene(win):
+    for item in win.items[:]:
+        item.undraw()
+
+def drawScene(win,color,path):
+   
+    clearScene(win)
     drawStars(win) 
     gameMap ,apples = drawMap(win,path) #mapGenerator.py
     player1 = drawAndroid(win,color) 
@@ -69,7 +61,7 @@ def checkKeys(win, speedX, speedY, android,gameMap,direction,frame):
         speedX,speedY,direction,frame = movementGround(key,android,direction,speedX,speedY,frame,gameMap,win)
     if key == "space": toggleJetpack(android,win,direction)
     
-    if key == "u":death(android)
+    if key == "u":death(android,0)
 
     return speedX, speedY , direction, frame
 
@@ -197,23 +189,21 @@ def playGame(win, android, map, apples,currentLevel,color):
 
 def nextLevel(currentLevel,win,color):
     
-    
-    win.close()
     currentLevel += 1
     
     if currentLevel == 2:
         path = "Levels/level2.txt"
-        win , player1, gameMap, apples = drawScene(color,path) 
+        win , player1, gameMap, apples = drawScene(win,color,path) 
         playGame(win, player1, gameMap,apples,currentLevel,color) 
 
     elif currentLevel == 3:
         path = "Levels/level3.txt"
-        win , player1, gameMap, apples = drawScene(color,path) 
+        win , player1, gameMap, apples = drawScene(win,color,path) 
         playGame(win, player1, gameMap,apples,currentLevel,color) 
 
     if currentLevel == 4:
+        clearScene(win)
         print("Congratulation, You won the game")
-
 
 def onMapCollide(android,side,speedX,speedY):
 
@@ -250,9 +240,10 @@ def onMapCollide(android,side,speedX,speedY):
     return speedX, speedY
 
 def main():
-    level = 1
+    path = "Levels/level1.txt"
     color = getIntputs()
-    win , player1, gameMap, apples = drawScene(color,"Levels/level1.txt") 
-    playGame(win, player1, gameMap,apples,level,color) 
+    win = GraphWin("Apple Chaser" , 800, 600)
+    win , player1, gameMap, apples = drawScene(win,color,path) 
+    playGame(win, player1, gameMap,apples,1,color) 
     
 main() 

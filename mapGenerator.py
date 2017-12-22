@@ -41,13 +41,20 @@ def drawMap(win,path):
  
     return gameMap , apples
 
+def drawMine(win,x1,y1):
+    drawPolygon(win,Point(x*blockW+(blockW/2),(y+1)*blockH),
+                    Point((x+1)*blockW,(y+0.5)*blockH),
+                    Point(x*blockW+(blockW/2),y*blockH),
+                    Point(x*blockW,(y+0.5)*blockH),
+                    "dark gray","dark gray")
+         
 
 def drawApple(win,x1,y1,colour):
 
     leaf = drawOval(win,Point(x1+9,y1+5),Point(x1+18,y1+0),"green","green")
     stem = drawRect(win,Point(x1+8.5,y1+7),Point(x1+11,y1-2),"black","black")
-    body1 =drawOval(win,Point(x1,y1+25),Point(x1+11.5,y1+5),"red","red")
-    body2 =drawOval(win,Point(x1+8.5,y1+25),Point(x1+20,y1+5),"red","red")
+    body1 = drawOval(win,Point(x1,y1+25),Point(x1+11.5,y1+5),"red","red")
+    body2 = drawOval(win,Point(x1+8.5,y1+25),Point(x1+20,y1+5),"red","red")
     extra = drawRect(win,Point(x1+6.25,y1+25),Point(x1+14.75,y1+20),"red","red")
     highlight = drawOval(win,Point(x1+15,y1+13),Point(x1+17,y1+10),"white","white")
     apple = [leaf,stem,body1,body2,extra,highlight]
@@ -130,6 +137,3 @@ def drawStars(win):
         star = Point(x,y).draw(win)
         star.setFill("white")
 
-
-# and int(ay1)+1 <= int(by2) and int(ay2)-1>=int(by1):
-# and int(ax2) <= int(bx1)+9 and int(ay1)+1 <= int(by2) and int(ay2)-1>=int(by1):
