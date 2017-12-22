@@ -53,6 +53,7 @@ def drawAndroid(win,color):
 def drawScene(color,path):
     
     win = GraphWin("Apple Chaser" , 800, 600)
+    drawStars(win) 
     gameMap ,apples = drawMap(win,path) #mapGenerator.py
     player1 = drawAndroid(win,color) 
 

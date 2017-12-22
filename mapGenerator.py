@@ -10,7 +10,7 @@ def readFile(path):
 def drawMap(win,path):
     apples = []
     gameMap = readFile(path)
-    win.setBackground("light blue")
+    win.setBackground("blue")
     #Integer Division to keep in inside the screen
     blockH = win.height // len(gameMap) 
     blockW = (win.width // len(gameMap[0]))+1
@@ -23,7 +23,7 @@ def drawMap(win,path):
                 
             elif gameMap[y][x] == "1": #Collision Block 
                 drawRect(win,Point(x*blockW,y*blockH),
-                        Point((x+1)*blockW,(y+1)*blockH),"gray","gray")
+                        Point((x+1)*blockW,(y+1)*blockH),"light blue","blue")
             
             elif gameMap[y][x] == "2": #Spikes
                 drawPolygon(win,Point(x*blockW+(blockW/2),(y+1)*blockH),
@@ -37,7 +37,7 @@ def drawMap(win,path):
 
             elif gameMap[y][x] == "e": #End
                 drawRect(win,Point(x*blockW,y*blockH),
-                        Point((x+1)*blockW,(y+1)*blockH),"white","white")
+                        Point((x+1)*blockW,(y+1)*blockH),"dark blue","dark blue")
  
     return gameMap , apples
 
@@ -120,6 +120,16 @@ def blockToBlock(win,gameMap,ix,iy,android): #ix = block index x
     
         return True
     return False
+
+
+def drawStars(win):
+    from random import random
+    for i in range(100):
+        x = random() * 1000
+        y = random() * 1000
+        star = Point(x,y).draw(win)
+        star.setFill("white")
+
 
 # and int(ay1)+1 <= int(by2) and int(ay2)-1>=int(by1):
 # and int(ax2) <= int(bx1)+9 and int(ay1)+1 <= int(by2) and int(ay2)-1>=int(by1):
