@@ -4,6 +4,16 @@ from graphics import *
 
 #-------DrawShapes------------
 
+def drawLine(win,p1,p2,outline=None,size=None):
+    
+    line = Line(p1,p2)
+
+    if outline != None: line.setFill(outline)
+    if size != None: line.setWidth(int(size))
+    line.draw(win)
+    return line
+
+
 def drawRect(win,p1,p2,fill = None,outline= None):
         
     rect = Rectangle(p1,p2)
