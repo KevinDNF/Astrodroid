@@ -2,11 +2,10 @@ from graphics import *
 from drawShapes import *
 
 #Android related functions
-##To do 
-#+ Turn every rectangle in a polygon (for animations)
-#+ Add arms&&legs animations (2 frames)
-#+ Delete experiments
 
+
+# To-do
+# Change the way the jetpack is checked
 def animateWalk(android,frame):
     if frame == 0:
        android[2].move(5,0)
@@ -34,11 +33,33 @@ def death(android,score):
            android[5].move(-speed,-speed)
            android[7].move(-speed,speed)
 
+def createJetpack(win,body):
+
+    block = drawRect(win,Point(body.p1.x-10,body.p1.y+3) 
+                ,Point(body.p1.x,body.p2.y-5),"dark gray","black")
+    
+    prop = drawRect(win,Point(body.p1.x-9.5,body.p2.y-5) 
+                ,Point(body.p1.x-1.9,body.p2.y),"gray","black")
+    
+    det1 = drawLine(win,Point(body.p1.x-7,body.p2.y-5),Point(body.p1.x-7,body.p2.y))
+    det2 = drawLine(win,Point(body.p1.x-5,body.p2.y-5),Point(body.p1.x-5,body.p2.y))
+    det3 = drawLine(win,Point(body.p1.x-3,body.p2.y-5),Point(body.p1.x-3,body.p2.y))
+    
+    det4 = drawLine(win,Point(body.p1.x-10,body.p1.y+6),
+                 Point(body.p1.x,body.p1.y+6),"dark blue",1)
+    det5 = drawLine(win,Point(body.p1.x-10,body.p1.y+8),
+                Point(body.p1.x,body.p1.y+8),"blue",1)
+
+    jetpack = [block,prop,det1,det2,det3,det4,det5] # len == 7
+    
+    return jetpack
+
 def createAndroid(win,x,y,color):
     
     head = drawCircle(win, Point(x+50,y+20), 15, color, "black")
-    body = drawRect(win, Point(x+35,y+20), Point(x+65,y+60), color, "white")
+    body = drawRect(win, Point(x+35,y+20), Point(x+65,y+60), color, "black")
 
+   # =  drawLine(win, Point(x+35,y+20), Point(x+65,y+20),"white")
     arm = drawRect(win, Point(x+47,y+25), Point(x+57,y+55),color, "black")
  
     legL = drawRect(win, Point(x+47,y+60), Point(x+55,y+75),color, "black")
@@ -46,23 +67,22 @@ def createAndroid(win,x,y,color):
 
     eye = drawCircle(win, Point(x+57,y+12), 3, "white","black")
     block = Point(-10000000,-1000000)
+    
+    android = [head,body,arm,legL,legR,eye,block]
+    jetpack = createJetpack(win,body)
+    android.extend(jetpack)
    
-    jetpack = Rectangle(Point(body.p1.x-10,body.p1.y+3),
-                        Point(body.p1.x,body.p2.y-5)).draw(win)
-    jetpack.setFill("gray")
-    jetpack.setOutline("black")
-   
-    #block = drawRect(win,Point(body.p1.x,body.p1.y -15),Point(body.p2.x,body.p2.y+15))
+   #block = drawRect(win,Point(body.p1.x,body.p1.y -15),Point(body.p2.x,body.p2.y+15))
     #uncomment to see the collision block around the player
     #(testing purposes)
-    return [head,body,arm,legL,legR,eye,block,jetpack]
+    return android
 
 def move(android, x,y):
     for part in android:
         part.move(x,y)
 
 def checkJetpack(android):
-    if len(android) == 9:
+    if len(android) == 15:
         return True
     else:
         return False
@@ -71,16 +91,16 @@ def toggleJetpack(android,win,direction):
     body = android[1]
     jetpack = android[7]
 
-    fire = Polygon(Point(jetpack.p1.x,jetpack.p2.y+2),
-            Point(jetpack.p1.x+5,jetpack.p2.y+27),
-            Point(jetpack.p2.x,jetpack.p2.y+2))
+    fire = Polygon(Point(jetpack.p1.x,jetpack.p2.y+7),
+            Point(jetpack.p1.x+4,jetpack.p2.y+32),
+            Point(jetpack.p2.x-2,jetpack.p2.y+7))
 
     fire.setFill("red")
     fire.setOutline("yellow")
 
     if checkJetpack(android):  #its there 
-        android[8].undraw() 
-        android.remove(android[8])
+        android[14].undraw() 
+        android.remove(android[14])
     else: #Its not there
 
         android.append(fire)
@@ -93,9 +113,15 @@ def invertPoscition(android,direction):
         android[3].move(-4,0)
        #legR 
         android[5].move(-12,0)
-        android[7].move(40,0) #jetpack
+        android[7].move(40,0)#jetpack
+        android[8].move(40,0)#jetpack
+        android[9].move(40,0)#jetpack
+        android[10].move(40,0)#jetpack
+        android[11].move(40,0)#jetpack
+        android[12].move(40,0)#jetpack
+        android[13].move(40,0)#jetpack
         if checkJetpack(android):
-            android[8].move(40,0)
+            android[14].move(40,0)
         return "left"
 
     elif direction == "left":
@@ -104,6 +130,19 @@ def invertPoscition(android,direction):
        #LegR 
         android[5].move(12,0)
         android[7].move(-40,0) #jetpack
+        android[8].move(-40,0)#jetpack
+        android[9].move(-40,0)#jetpack
+        android[10].move(-40,0)#jetpack
+        android[11].move(-40,0)#jetpack
+        android[12].move(-40,0)#jetpack
+        android[13].move(-40,0)#jetpack
         if checkJetpack(android):
-            android[8].move(-40,0)
+            android[14].move(-40,0)
         return "right"
+
+
+
+#win = GraphWin("",200,200)
+#android = createAndroid(win,100,100,"green")
+#toggleJetpack(android,win,"right")
+
