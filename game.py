@@ -1,25 +1,22 @@
-#KevinDNF - Python Game Competition 
-#UP849868
+#KevinDNF - Astrodroid
 
 from graphics import *
 from drawShapes import *
 from androidGenerator import *
 from mapGenerator import *
-#------------------------------------
-
-#------------------------------------
-
-#To-do
+#-----------------------
+#-To-Do
+#
 # Get rid of CLI use GUI
 # Read number of files in Level folder for "infinite" levels
 # Fix air walking
+#
+#------------------------UI-------------------------------------
 
 def getIntputs():
 
     avalColor = ["red","green","blue","magenta"
               ,"cyan","orange","brown","pink"]
-   
-    selectedColors = [] #def var for loops
     color = ""
     
     while color not in avalColor:
@@ -27,69 +24,68 @@ def getIntputs():
         color = input(
          "\n Pick a colour for you android from the following... "
          "\n Color {0}: ".format(avalColor)).lower()
-        #Users can now enter Red, green or even gReEn
 
-    selectedColors.append(avalColor.pop(avalColor.index(color))) 
-    #Pops color and appends it to selectedColors
-    return selectedColors 
+    return color 
 
-def drawAndroid(win,color):
-     
-    player1 = createAndroid(win,200,300,color) #androidGenerator.py
-    
-    return player1
+#------------------------DrawGame-------------------------------------
+
+def drawScene(win,color,x,y,path):
+   
+    clearScene(win)
+    drawStars(win) 
+    gameMap, apples = drawMap(win,path) 
+    player1 = createAndroid(win,x,y,color) 
+
+    return win , player1 , gameMap ,apples
 
 def clearScene(win):
     for item in win.items[:]:
         item.undraw()
 
-def drawScene(win,color,path):
-   
-    clearScene(win)
-    drawStars(win) 
-    gameMap ,apples = drawMap(win,path) #mapGenerator.py
-    player1 = drawAndroid(win,color) 
+#------------------------Movement-------------------------------------
 
-    return win , player1 , gameMap ,apples
-
-def checkKeys(win, speedX, speedY, android,gameMap,direction,frame):
+def checkKeys(win,android,gameMap,speedX,speedY,direction,frame):
     speedChange = 0.06
     key = win.checkKey()
 
     if checkJetpack(android) == True: 
-        speedX,speedY,direction,frame = movementFlying(speedChange,key,android,direction,speedX,speedY,frame) 
+        speedX,speedY,direction,frame = movementFlying(android,speedX,speedY
+                                            ,speedChange,key,direction,frame) 
     else: #NOT FLYING
-        speedX,speedY,direction,frame = movementGround(key,android,direction,speedX,speedY,frame,gameMap,win)
+        speedX,speedY,direction,frame = movementGround(android,speedX,speedY
+                                            ,key,direction,frame,win,gameMap)
     if key == "space": toggleJetpack(android,win,direction)
-    
     if key == "u":death(android,0)
 
-    return speedX, speedY , direction, frame
+    return speedX, speedY, direction, frame
 
-
-def movementFlying(speedChange,key,android,direction,speedX,speedY,frame):
+def movementFlying(android,speedX,speedY,speedChange,key,direction,frame):
     
     if key == "Left" or key == "a":
-        if direction != "left": 
-            direction = invertPoscition(android,direction) 
         speedX = speedX - speedChange
         if speedX <= -1: speedX = -1
+        
+        #-----------Animation------- 
+        if direction != "left": #change to Left then check outside loop
+            direction = invertPoscition(android,direction) 
         frame = frame + 0.5
         if frame >= 2 :
             frame = 0
-        
         animateWalk(android,frame)
+        #-----------Animation------- 
 
     elif key == "Right" or key == "d":
-        if direction != "right": 
-            direction = invertPoscition(android,direction)
         speedX = speedX + speedChange
         if speedX >= 1: speedX = 1
+        
+        #-----------Animation------- 
+        if direction != "right": 
+            direction = invertPoscition(android,direction)
         frame = frame + 0.5
         if frame >= 2 :
             frame = 0
-        
         animateWalk(android,frame)
+        #-----------Animation------- 
    
     speedY = speedY - 0.01
     if speedY <= -0.3: speedY = -0.3 
@@ -97,7 +93,7 @@ def movementFlying(speedChange,key,android,direction,speedX,speedY,frame):
 
     return speedX,speedY,direction,frame
 
-def movementGround(key,android,direction,speedX,speedY,frame,gameMap,win):
+def movementGround(android,speedX,speedY,key,direction,frame,win,gameMap):
     speedX = 0
     if key == "Left" or key == "a":
         
@@ -148,6 +144,8 @@ def gravity(speedY):
     if speedY >= 1: speedY = 1
     return speedY
 
+#------------------------Collision-------------------------------------
+
 def appleCollide(win,android,gameMap,apples,score):
     for y in range(len(gameMap)):
         for x in range(len(gameMap[0])-1):
@@ -157,7 +155,36 @@ def appleCollide(win,android,gameMap,apples,score):
 
     return apples , score
 
-def playGame(win, android, map, apples,currentLevel,color):
+def onMapCollide(android,side,speedX,speedY):
+
+    if side != False:
+
+        x = 0
+        y = 0
+
+        if "bottom" in side:
+            speedY = 0
+            y = -0.5
+
+        if "top" in side:
+            speedY = 0
+            y = 0.5
+
+        if "left" in side:
+            speedX = 0
+            x = 0.5
+
+        if "right" in side:
+            speedX = 0 
+            x = -0.5
+
+        move(android,x,y)
+        
+    return speedX, speedY
+
+#------------------------GameLoop-------------------------------------
+
+def playGame(win, android, gameMap, apples,currentLevel,color):
     speedX = 0
     speedY = 0
     direction = "right"
@@ -168,83 +195,48 @@ def playGame(win, android, map, apples,currentLevel,color):
     frame = 1
 
     while not won and not lost:
-        speedX , speedY, direction ,frame = checkKeys(win, speedX, speedY, 
-                                                    android,map,direction,frame)
+        speedX , speedY, direction ,frame = checkKeys(win,android,gameMap,
+                                            speedX,speedY,direction,frame)
 
         speedX, speedY = onMapCollide(android,
-                collisionDetection(win,map,android,"1"),speedX,speedY) 
+                collisionDetection(win,gameMap,android,"1"),speedX,speedY) 
         
-        apples , score = appleCollide(win,android,map,apples,score)
-        if collisionDetection(win,map,android,"2") != False: lost = True
-        if collisionDetection(win,map,android,"e") != False: won = True
+        apples , score = appleCollide(win,android,gameMap,apples,score)
+        if collisionDetection(win,gameMap,android,"2") != False: lost = True
+        if collisionDetection(win,gameMap,android,"e") != False: won = True
 
         speedY = gravity(speedY) 
         move(android,speedX,speedY) 
     
     if won == True:
         print("You Won! ","Score = {0}".format(score) )
-        nextLevel(currentLevel,win,color)
+        nextLevel(win,currentLevel,color)
     if lost == True:
         death(android,score)
         
-
-def nextLevel(currentLevel,win,color):
+def nextLevel(win,currentLevel,color):
     
     currentLevel += 1
     
     if currentLevel == 2:
         path = "Levels/level2.txt"
-        win , player1, gameMap, apples = drawScene(win,color,path) 
+        win , player1, gameMap, apples = drawScene(win,color,200,300,path) 
         playGame(win, player1, gameMap,apples,currentLevel,color) 
 
     elif currentLevel == 3:
         path = "Levels/level3.txt"
-        win , player1, gameMap, apples = drawScene(win,color,path) 
+        win , player1, gameMap, apples = drawScene(win,color,200,300,path) 
         playGame(win, player1, gameMap,apples,currentLevel,color) 
 
     if currentLevel == 4:
         clearScene(win)
         print("Congratulation, You won the game")
 
-def onMapCollide(android,side,speedX,speedY):
-
-    if side != False:
-
-        #print(side)
-        x = 0
-        y = 0
-
-        if "bottom" in side:
-            #print("bottom")
-            speedY = 0
-            y = -0.5
-            #move
-            #speedY = 1 for bouncy walls
-
-        if "top" in side:
-            #print("top")
-            speedY = 0
-            y = 0.5
-
-        if "left" in side:
-            #print("left")
-            speedX = 0
-            x = 0.5
-
-        if "right" in side:
-            #print("right")
-            speedX = 0 
-            x = -0.5
-
-        move(android,x,y)
-        
-    return speedX, speedY
-
 def main():
     path = "Levels/level1.txt"
     color = getIntputs()
-    win = GraphWin("Apple Chaser" , 800, 600)
-    win , player1, gameMap, apples = drawScene(win,color,path) 
+    win = GraphWin("Astrodroid" , 800, 600)
+    win , player1, gameMap, apples = drawScene(win,color,200,300,path) 
     playGame(win, player1, gameMap,apples,1,color) 
     
 main() 

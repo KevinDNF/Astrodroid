@@ -45,7 +45,7 @@ def death(android,score):
        print("You Lost :( ", "At least you got {0} apples :)".format(score))
        speed = 0
        while True:
-           speed += 0.0001 
+           speed += 0.0005 
            android[0].move(speed/2,speed)
            android[1].move(speed/2,speed)
            android[2].move(speed,-speed)

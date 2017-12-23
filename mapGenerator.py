@@ -1,6 +1,9 @@
 from graphics import *
 from drawShapes import *
 
+#To-Do
+#Add a spawn point to the map file
+
 def readFile(path):
    
     dataInFile = open(path, "r") 
