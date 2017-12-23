@@ -29,12 +29,7 @@ def drawMap(win,path):
                         Point((x+1)*blockW,(y+1)*blockH),"light blue","blue")
             
             elif gameMap[y][x] == "2": #Spikes
-                drawPolygon(win,Point(x*blockW+(blockW/2),(y+1)*blockH),
-                        Point((x+1)*blockW,(y+0.5)*blockH),
-                        Point(x*blockW+(blockW/2),y*blockH),
-                        Point(x*blockW,(y+0.5)*blockH),
-                        "dark gray","dark gray")
-                
+                drawMine(win,x,y,blockW,blockH)                
             elif gameMap[y][x] == "a": # Apples
                 apples.append(drawApple(win,x*blockW,y*blockH,"red"))
 
@@ -44,13 +39,18 @@ def drawMap(win,path):
  
     return gameMap , apples
 
-def drawMine(win,x1,y1):
-    drawPolygon(win,Point(x*blockW+(blockW/2),(y+1)*blockH),
-                    Point((x+1)*blockW,(y+0.5)*blockH),
-                    Point(x*blockW+(blockW/2),y*blockH),
-                    Point(x*blockW,(y+0.5)*blockH),
-                    "dark gray","dark gray")
-         
+def drawMine(win,ix,iy,blockW,blockH):
+    
+    wMid = (blockW*ix) + (blockW/2)
+    hMid = (blockH*iy) + (blockH/2)
+
+    drawCircle(win,Point(wMid,hMid),8,"dark cyan","black")
+    drawCircle(win,Point(wMid,iy*blockH+4),3,"light blue","black")
+    drawCircle(win,Point(wMid,((iy+1)*blockH)-4),3,"light blue","black")
+    drawCircle(win,Point(ix*blockW+4,hMid),3,"cyan","black")
+    drawCircle(win,Point(((ix+1)*blockW)-4,hMid),3,"cyan","black")
+
+#    drawRect(win,Point(ix*25,iy*25),Point((ix+1)*25,(iy+1)*25),None,"black")
 
 def drawApple(win,x1,y1,colour):
 
