@@ -4,6 +4,7 @@ from graphics import *
 from drawShapes import *
 from androidGenerator import *
 from mapGenerator import *
+import os
 #-----------------------
 #-To-Do
 #
@@ -184,8 +185,8 @@ def onMapCollide(android,side,speedX,speedY):
 
 #------------------------GameLoop-------------------------------------
 
-def playGame(win, android, gameMap, apples,currentLevel,color):
-    speedX = 0
+def playGame(win, android, gameMap, apples,color):
+    speedX =    0
     speedY = 0
     direction = "right"
     score = 0
@@ -210,33 +211,28 @@ def playGame(win, android, gameMap, apples,currentLevel,color):
     
     if won == True:
         print("You Won! ","Score = {0}".format(score) )
-        nextLevel(win,currentLevel,color)
     if lost == True:
         death(win,android,score)
-        
-def nextLevel(win,currentLevel,color):
-    
-    currentLevel += 1
-    
-    if currentLevel == 2:
-        path = "Levels/level2.txt"
-        win , player1, gameMap, apples = drawScene(win,color,200,300,path) 
-        playGame(win, player1, gameMap,apples,currentLevel,color) 
 
-    elif currentLevel == 3:
-        path = "Levels/level3.txt"
-        win , player1, gameMap, apples = drawScene(win,color,200,300,path) 
-        playGame(win, player1, gameMap,apples,currentLevel,color) 
-
-    if currentLevel == 4:
-        clearScene(win)
-        print("Congratulation, You won the game")
+def loadLevels(path):
+    levels = os.listdir(path)
+    levels.sort()
+    return levels, path
 
 def main():
-    path = "Levels/level1.txt"
+    levels, path = loadLevels("Levels/")
     color = getIntputs()
     win = GraphWin("Astrodroid" , 800, 600)
-    win , player1, gameMap, apples = drawScene(win,color,200,300,path) 
-    playGame(win, player1, gameMap,apples,1,color) 
     
+    for level in levels:
+        win , player1, gameMap, apples = drawScene(win,color,200,300,path + str(level)) 
+        playGame(win, player1, gameMap,apples,color) 
+   
+    
+    clearScene(win)
+    print("Congratulation, You won the game")
+    drawText(win,"Congratulations, \n"
+                "You Won  :) \n ",
+                Point(win.width/2,win.height/2),30,"Black","times roman","bold")
+
 main() 
