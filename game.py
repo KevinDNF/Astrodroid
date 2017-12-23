@@ -12,6 +12,7 @@ from mapGenerator import *
 #To-do
 # Get rid of CLI use GUI
 # Read number of files in Level folder for "infinite" levels
+# Fix air walking
 
 def getIntputs():
 

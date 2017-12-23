@@ -131,7 +131,7 @@ def blockToBlock(win,gameMap,ix,iy,android): #ix = block index x
 
 def drawStars(win):
     from random import random
-    for i in range(100):
+    for i in range(500):
         x = random() * 1000
         y = random() * 1000
         star = Point(x,y).draw(win)

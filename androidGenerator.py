@@ -7,6 +7,7 @@ from drawShapes import *
 # To-do
 # Change the way the jetpack is checked
 # Animate jetpack with walking animation
+# Add second eye + animate
 # Animate fire
 
 def animateWalk(android,frame):
@@ -15,13 +16,30 @@ def animateWalk(android,frame):
        android[3].move(3,0)
        android[4].move(-3,0)
        android[5].move(2,0)
-    
+ 
+#      android[7].move(3,0) #Limited by z axis...
+#      android[8].move(3,0) #Jetpack will always be on top
+#      android[9].move(3,0) #So left walking won't work.....
+#      android[10].move(3,0)#.....
+#      android[11].move(3,0)#.......
+#      android[12].move(3,0)#........Unless
+#      android[13].move(3,0)#Movement is consistent in both directions 
+#      if checkJetpack(android):android[14].move(3,0)# So jetpack never goes "behind"
     if frame == 1:
        
        android[2].move(-5,0)
        android[3].move(-3,0)
        android[4].move(3,0) 
        android[5].move(-2,0)
+
+#      android[7].move(-3,0)
+#      android[8].move(-3,0)
+#      android[9].move(-3,0)
+#      android[10].move(-3,0)
+#      android[11].move(-3,0)
+#      android[12].move(-3,0)
+#      android[13].move(-3,0)
+#      if checkJetpack(android):android[14].move(-3,0)
 
 def death(android,score):
        print("You Lost :( ", "At least you got {0} apples :)".format(score))
@@ -35,6 +53,22 @@ def death(android,score):
            android[4].move(speed,speed) 
            android[5].move(-speed,-speed)
            android[7].move(-speed,speed)
+           
+           android[12].move(-speed,speed)
+           android[13].move(-speed,speed)
+
+           if checkJetpack(android): 
+               android[8].move(0,-speed*10) # Jetpack
+               android[9].move(0,-speed*10) # Jetpack
+               android[10].move(0,-speed*10)# Jetpack
+               android[11].move(0,-speed*10)# Jetpack
+               android[14].move(0,-speed*10) # Fire
+           else:
+               android[8].move(-speed,speed*2) # Jetpack
+               android[9].move(-speed,speed*2) # Jetpack
+               android[10].move(-speed,speed*2)# Jetpack
+               android[11].move(-speed,speed*2)# Jetpack
+
 
 def createJetpack(win,body):
 
