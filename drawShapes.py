@@ -12,7 +12,6 @@ def drawLine(win,p1,p2,fill=None,size=None):
     line.draw(win)
     return line
 
-
 def drawRect(win,p1,p2,fill = None,outline= None):
         
     rect = Rectangle(p1,p2)
@@ -61,6 +60,15 @@ def drawOval(win,p1,p2,fill=None,outline=None):
     #Outline of shape will be black unless specified
     oval.draw(win)
     return oval
+
+def drawText(win,txt,center,size,colour=None,face=None,style=None):
+    text = Text(center,str(txt))
+    text.setSize(size)
+    if colour != None: text.setOutline(colour)
+    if face != None: text.setFace(face)
+    if style != None: text.setStyle(style)
+    text.draw(win)
+    return text
 
 #-------MakeShapes------------
 

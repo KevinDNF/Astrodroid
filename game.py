@@ -55,7 +55,7 @@ def checkKeys(win,android,gameMap,speedX,speedY,direction,frame):
         speedX,speedY,direction,frame = movementGround(android,speedX,speedY
                                             ,key,direction,frame,win,gameMap)
     if key == "space": toggleJetpack(android,win,direction)
-    if key == "u":death(android,0)
+    if key == "u":death(win,android,0)
 
     return speedX, speedY, direction, frame
 
@@ -212,7 +212,7 @@ def playGame(win, android, gameMap, apples,currentLevel,color):
         print("You Won! ","Score = {0}".format(score) )
         nextLevel(win,currentLevel,color)
     if lost == True:
-        death(android,score)
+        death(win,android,score)
         
 def nextLevel(win,currentLevel,color):
     

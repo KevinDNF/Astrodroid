@@ -41,9 +41,13 @@ def animateWalk(android,frame):
 #      android[13].move(-3,0)
 #      if checkJetpack(android):android[14].move(-3,0)
 
-def death(android,score):
+def death(win,android,score):
        print("You Lost :( ", "At least you got {0} apples :)".format(score))
        speed = 0
+       drawText(win,
+               "You Lost  :( \n "
+               "At least you got {0} apples".format(score),
+               Point(win.width/2,win.height/2),30,"Black","times roman","bold")
        while True:
            speed += 0.0005 
            android[0].move(speed/2,speed)
