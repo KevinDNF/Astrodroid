@@ -47,7 +47,7 @@ def death(win,android,score):
        drawText(win,
                "You Lost  :( \n "
                "At least you got {0} apples".format(score),
-               Point(win.width/2,win.height/2),30,"Black","times roman","bold")
+               Point(win.width/2,win.height/2),30,"white","times roman","bold")
        while True:
            speed += 0.0005 
            android[0].move(speed/2,speed)

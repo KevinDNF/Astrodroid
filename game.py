@@ -233,6 +233,6 @@ def main():
     print("Congratulation, You won the game")
     drawText(win,"Congratulations, \n"
                 "You Won  :) \n ",
-                Point(win.width/2,win.height/2),30,"Black","times roman","bold")
+                Point(win.width/2,win.height/2),30,"white","times roman","bold")
 
 main() 

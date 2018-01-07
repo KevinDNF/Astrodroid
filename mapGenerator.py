@@ -13,7 +13,7 @@ def readFile(path):
 def drawMap(win,path):
     apples = []
     gameMap = readFile(path)
-    win.setBackground("blue")
+    win.setBackground("darkblue")
     #Integer Division to keep in inside the screen
     blockH = win.height // len(gameMap) 
     blockW = (win.width // len(gameMap[0]))+1
