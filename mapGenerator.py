@@ -26,7 +26,7 @@ def drawMap(win,path):
                 
             elif gameMap[y][x] == "1": #Collision Block 
                 drawRect(win,Point(x*blockW,y*blockH),
-                        Point((x+1)*blockW,(y+1)*blockH),"light blue","blue")
+                        Point((x+1)*blockW,(y+1)*blockH),"light blue","darkblue")
             
             elif gameMap[y][x] == "2": #Spikes
                 drawMine(win,x,y,blockW,blockH)                
@@ -35,7 +35,7 @@ def drawMap(win,path):
 
             elif gameMap[y][x] == "e": #End
                 drawRect(win,Point(x*blockW,y*blockH),
-                        Point((x+1)*blockW,(y+1)*blockH),"dark blue","dark blue")
+                        Point((x+1)*blockW,(y+1)*blockH),"white","white")
  
     return gameMap , apples
 
