@@ -185,11 +185,10 @@ def onMapCollide(android,side,speedX,speedY):
 
 #------------------------GameLoop-------------------------------------
 
-def playGame(win, android, gameMap, apples,color):
+def playGame(win, android, gameMap, apples,color,score):
     speedX =    0
     speedY = 0
     direction = "right"
-    score = 0
     won = False
     lost = False
 
@@ -214,6 +213,8 @@ def playGame(win, android, gameMap, apples,color):
     if lost == True:
         death(win,android,score)
 
+    return score
+
 def loadLevels(path):
     levels = os.listdir(path)
     levels.sort()
@@ -223,16 +224,18 @@ def main():
     levels, path = loadLevels("Levels/")
     color = getIntputs()
     win = GraphWin("Astrodroid" , 800, 600)
-    
+   
+    score = 0
+
     for level in levels:
         win , player1, gameMap, apples = drawScene(win,color,200,300,path + str(level)) 
-        playGame(win, player1, gameMap,apples,color) 
+        score = playGame(win, player1, gameMap,apples,color,score) 
    
-    
     clearScene(win)
     print("Congratulation, You won the game")
     drawText(win,"Congratulations, \n"
-                "You Won  :) \n ",
+                "You Won  :) \n " +
+                "Score: {0}".format(score),
                 Point(win.width/2,win.height/2),30,"white","times roman","bold")
 
 main() 
