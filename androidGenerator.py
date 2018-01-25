@@ -17,14 +17,14 @@ def animateWalk(android,frame):
        android[4].move(-3,0)
        android[5].move(2,0)
  
-#      android[7].move(3,0) #Limited by z axis...
-#      android[8].move(3,0) #Jetpack will always be on top
-#      android[9].move(3,0) #So left walking won't work.....
-#      android[10].move(3,0)#.....
-#      android[11].move(3,0)#.......
-#      android[12].move(3,0)#........Unless
-#      android[13].move(3,0)#Movement is consistent in both directions 
-#      if checkJetpack(android):android[14].move(3,0)# So jetpack never goes "behind"
+#      android[7].move(3,0) 
+#      android[8].move(3,0)
+#      android[9].move(3,0)
+#      android[10].move(3,0)
+#      android[11].move(3,0)
+#      android[12].move(3,0)
+#      android[13].move(3,0)
+#      if checkJetpack(android):android[14].move(3,0)
     if frame == 1:
        
        android[2].move(-5,0)
